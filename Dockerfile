@@ -4,7 +4,8 @@ RUN apt-get update && \
     apt-get -y install python3-pip && \
     pip3 install --no-cache-dir \
          notebook==5.2 \
-         git+https://github.com/jupyterhub/nbrsessionproxy.git@6eefeac11cbe82432d026f41a3341525a22d6a0b && \
+         git+https://github.com/jupyterhub/nbrsessionproxy.git@6eefeac11cbe82432d026f41a3341525a22d6a0b \
+         git+https://github.com/jupyterhub/nbserverproxy.git@5508a182b2144d29824652d8977b32302517c8bc && \
     apt-get purge && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -21,6 +22,7 @@ RUN R --quiet -e "install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 
 RUN R --quiet -e "devtools::install_github('IRkernel/IRkernel')"
 RUN R --quiet -e "IRkernel::installspec()"
 
+RUN jupyter serverextension enable --user --py nbserverproxy
 RUN jupyter serverextension enable --user --py nbrsessionproxy
 RUN jupyter nbextension install    --user --py nbrsessionproxy
 RUN jupyter nbextension enable     --user --py nbrsessionproxy
