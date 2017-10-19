@@ -35,3 +35,5 @@ USER ${NB_USER}
 
 # Run install.r if it exists
 RUN if [ -f install.r ]; then R --quiet -f install.r; fi
+
+ENV LD_LIBRARY_PATH /usr/local/lib/R/lib
