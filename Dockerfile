@@ -4,7 +4,7 @@ RUN apt-get update && \
     apt-get -y install python3-pip && \
     pip3 install --no-cache-dir \
          notebook==5.2 \
-         git+https://github.com/jupyterhub/nbrsessionproxy.git@v0.2.1 && \
+         git+https://github.com/jupyterhub/nbrsessionproxy.git@6eefeac11cbe82432d026f41a3341525a22d6a0b && \
     apt-get purge && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
