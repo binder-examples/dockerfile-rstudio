@@ -2,7 +2,9 @@ FROM rocker/tidyverse:3.4.2
 
 RUN apt-get update && \
     apt-get -y install python3-pip && \
-    pip3 install --no-cache-dir notebook==5.2 && \
+    pip3 install --no-cache-dir \
+         notebook==5.2 \
+         git+https://github.com/jupyterhub/nbrsessionproxy.git@v0.2.1 && \
     apt-get purge && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -19,7 +21,6 @@ RUN R --quiet -e "install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 
 RUN R --quiet -e "devtools::install_github('IRkernel/IRkernel')"
 RUN R --quiet -e "IRkernel::installspec()"
 
-RUN pip install --no-cache-dir git+https://github.com/jupyterhub/nbrsessionproxy.git@v0.2.1
 RUN jupyter serverextension enable --user --py nbrsessionproxy
 RUN jupyter nbextension install    --user --py nbrsessionproxy
 RUN jupyter nbextension enable     --user --py nbrsessionproxy
